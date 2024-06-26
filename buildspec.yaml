@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2024-06-26'
+Description: "Cloud formation hosted web by s3 bucket and route  53 hosted zone"
+
+Parameters:
+  BucketName:
+    Type: string
+    Description: "Bucket name contain file build" 
+  IndexDocument:
+    Type: string 
+    Description : "The path to index file"
+  HostedZoneName: 
+    Type: string 
+    Description: "Hosted zone "
+Resources:
+  S3Bucket: 
+    Type: "AWS::S3::Bucket"
+    Properties: 
+      BucketName: !Ref BucketName
+      WebsiteConfiguration: 
+        IndexDocument: !Ref IndexDocument
+  RouteService:
+    Type: "AWS::Route53::HostedZone",
+    Properties:
+      Name: !Ref HostedZoneName
+Outputs:
+  S3Bucket: 
+    Description: "Bucket Name"
+  RouteService:
+    Description: "Route Service"
+  
